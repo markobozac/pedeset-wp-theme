@@ -35,10 +35,16 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_KEY_PASSPHRASE: ${{ secrets.SSH_KEY_PASSPHRASE }}
         run: |
           install -m 700 -d ~/.ssh
-          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
+          # Ključ iz cPanela je obično zaštićen lozinkom: skini je (opcionalni secret SSH_KEY_PASSPHRASE)
+          if [ -n "$SSH_KEY_PASSPHRASE" ]; then
+            ssh-keygen -p -P "$SSH_KEY_PASSPHRASE" -N "" -f ~/.ssh/deploy_key
+          fi
+          ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null || { echo "::error::Privatni ključ nije valjan ili traži lozinku (dodaj secret SSH_KEY_PASSPHRASE)"; exit 1; }
           ssh-keyscan -p "${SSH_PORT:-22}" -H "$SSH_HOST" >> ~/.ssh/known_hosts
 
       # Bez --delete: datoteke koje postoje samo na serveru

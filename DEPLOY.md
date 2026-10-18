@@ -17,3 +17,8 @@ Ručno pokretanje: Actions → "Deploy na A2 hosting" → Run workflow.
 4. Actions → **Run workflow** za probu.
 
 Ako SSH nije uključen na računu, treba ga zatražiti od A2 podrške.
+
+## Ako deploy padne s "Permission denied (publickey)"
+- Ključ u cPanelu mora biti **Authorized** (ne samo generiran).
+- U `SSH_KEY` mora biti **privatni** ključ, cijeli, s `-----BEGIN ... -----` i `-----END ... -----` redcima.
+- cPanel ključevi su obično zaštićeni lozinkom: dodaj je kao secret `SSH_KEY_PASSPHRASE`.
