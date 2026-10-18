@@ -22,7 +22,7 @@ function pedeset_social_data() {
 		'w'      => 1200,
 		'h'      => 630,
 		'mime'   => 'image/jpeg',
-		'alt'    => 'Zračna snimka iz 1968. uz današnju snimku istog mjesta. Naslov: Kako je tvoj grad izgledao prije 50 godina?',
+		'alt'    => 'Zračna snimka iz 1968. uz današnju snimku istog mjesta. Naslov: Kako je Hrvatska izgledala prije 50 godina i danas?',
 	);
 	if ( is_front_page() ) {
 		$d['desc'] = 'Povuci klizač i usporedi 123 grada i 11 posebnih mjesta iz zraka 1968. i danas. Pronađi svoj grad i vidi što se promijenilo u 50 godina.';

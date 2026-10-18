@@ -15,7 +15,7 @@ $n_mjesto = count( $places ) - $n_grad;
 	<div class="wrap hero-grid">
 		<div class="hero-copy">
 			<p class="eyebrow">Snimke iz zraka · 1968. i danas</p>
-			<h1>Kako je tvoj grad izgledao <em>prije 50 godina?</em></h1>
+			<h1>Kako je Hrvatska izgledala <em>prije 50 godina i danas?</em></h1>
 			<p class="lede">Povuci klizač i usporedi Hrvatsku iz 1968. s današnjom — <?php echo (int) $n_grad; ?> gradova i <?php echo (int) $n_mjesto; ?> posebnih mjesta, snimke poravnate jedna preko druge.</p>
 			<form class="finder" role="search" onsubmit="return false">
 				<label class="sr" for="finder-q">Pronađi grad ili mjesto</label>
