@@ -74,7 +74,7 @@
 			}
 			var r = size();
 			var divX = r.left + r.width * st.pos / 100;
-			if (st.s > 1.001 && Math.abs(e.clientX - divX) > 28) {
+			if (st.s > 1.001 && (e.pointerType === 'mouse' || Math.abs(e.clientX - divX) > 28)) {
 				mode = 'pan';
 				start = { x: e.clientX, y: e.clientY, tx: st.x, ty: st.y };
 			} else {
@@ -115,6 +115,11 @@
 			delete pointers[e.pointerId];
 			if (Object.keys(pointers).length === 0) { mode = null; }
 		}
+		/* Miš: crta prati pokazivač bez držanja tipke (dodir i dalje radi povlačenjem) */
+		el.addEventListener('pointermove', function (e) {
+			if (e.pointerType !== 'mouse' || e.buttons) { return; }
+			setPos(e.clientX);
+		});
 		el.addEventListener('pointerup', end);
 		el.addEventListener('pointercancel', end);
 		el.addEventListener('wheel', function (e) {
