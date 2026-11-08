@@ -150,3 +150,20 @@ function pedeset_suggest_handle() {
 }
 add_action( 'wp_ajax_g50_suggest', 'pedeset_suggest_handle' );
 add_action( 'wp_ajax_nopriv_g50_suggest', 'pedeset_suggest_handle' );
+
+/**
+ * Preusmjeravanje starih adresa mjesta koja su preimenovana (stari slug -> novi slug).
+ */
+function pedeset_renamed_places_redirect() {
+	if ( ! is_404() ) {
+		return;
+	}
+	$map  = array( 'oroslavlje' => 'oroslavje' );
+	$path = trim( (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH ), '/' );
+	$slug = basename( $path );
+	if ( isset( $map[ $slug ] ) ) {
+		wp_safe_redirect( home_url( '/' . $map[ $slug ] . '/' ), 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'pedeset_renamed_places_redirect' );
